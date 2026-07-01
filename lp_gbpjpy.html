@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PrismaFX GJ M15｜GBP/JPY 自動売買EA</title>
+<style>
+  :root{
+    --bg:#0f0a1e; --bg2:#170f2c; --card:#1d1436; --line:#33245c;
+    --tx:#eee8fc; --mut:#b09fd6; --accent:#a855f7; --accent2:#f472b6;
+    --good:#39d98a; --radius:16px; --maxw:720px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--tx);font-family:-apple-system,"Segoe UI","Hiragino Sans","Noto Sans JP",sans-serif;line-height:1.75;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 18px}
+  .prism{height:5px;background:linear-gradient(90deg,#7b5cff,#a855f7,#f472b6,#ffd166)}
+  .pr{display:inline-block;font-size:11px;color:var(--mut);border:1px solid var(--line);border-radius:999px;padding:2px 10px;letter-spacing:.04em}
+  .hero{background:radial-gradient(1200px 400px at 50% -10%,rgba(168,85,247,.25),transparent 60%),var(--bg);padding:38px 0 30px;text-align:center}
+  .badge{color:var(--accent2);font-weight:700;font-size:13px;letter-spacing:.12em}
+  h1{font-size:30px;line-height:1.3;margin:10px 0 6px;font-weight:800}
+  h1 .pair{background:linear-gradient(90deg,#a855f7,#f472b6);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .sub{color:var(--mut);font-size:15px;margin-bottom:20px}
+  .stats{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:18px 0}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;min-width:150px;flex:1}
+  .stat .k{font-size:12px;color:var(--mut)}
+  .stat .v{font-size:26px;font-weight:800;color:#fff;line-height:1.2}
+  .stat .v.good{color:var(--good)}
+  .cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:22px}
+  .btn{display:block;text-decoration:none;font-weight:700;padding:15px 22px;border-radius:12px;text-align:center;flex:1;min-width:220px;transition:.15s}
+  .btn-primary{background:linear-gradient(90deg,#a855f7,#8b3ff0);color:#fff;box-shadow:0 8px 22px rgba(168,85,247,.35)}
+  .btn-free{background:var(--card);color:var(--tx);border:1px solid var(--accent2)}
+  .btn:active{transform:translateY(1px)}
+  .micro{font-size:12px;color:var(--mut);margin-top:12px}
+  section{padding:34px 0;border-top:1px solid var(--line)}
+  h2{font-size:21px;font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:9px}
+  h2::before{content:"";width:6px;height:22px;border-radius:3px;background:linear-gradient(180deg,#a855f7,#f472b6)}
+  .chart{width:100%;border:1px solid var(--line);border-radius:12px;background:#fff;padding:8px;margin:6px 0 16px}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  td{padding:11px 12px;border-bottom:1px solid var(--line)}
+  td:first-child{color:var(--mut)}
+  td:last-child{text-align:right;font-weight:700}
+  ul.feat{list-style:none;display:grid;gap:12px}
+  ul.feat li{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:15px}
+  ul.feat li b{color:var(--accent2)}
+  .split{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+  .plan{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+  .plan.free{border-color:var(--accent2)}
+  .plan h3{font-size:17px;margin-bottom:6px}
+  .plan .tag{font-size:12px;color:var(--mut)}
+  .plan p{font-size:14px;color:var(--mut);margin-top:8px}
+  .gift{margin-top:14px;background:linear-gradient(90deg,rgba(244,114,182,.14),rgba(168,85,247,.14));border:1px dashed var(--accent2);border-radius:12px;padding:13px 15px;font-size:14px}
+  .price{text-align:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px}
+  .price .amt{font-size:30px;font-weight:800;color:#fff}
+  .disc{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:16px;font-size:13px;color:var(--mut);margin-top:10px}
+  .faq{display:grid;gap:10px}
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 16px}
+  .faq summary{cursor:pointer;font-weight:700;padding:10px 0}
+  .faq p{font-size:14px;color:var(--mut);padding:0 0 12px}
+  footer{padding:30px 0 46px;text-align:center;color:var(--mut);font-size:12px}
+  @media(max-width:560px){.split{grid-template-columns:1fr}h1{font-size:25px}.stat .v{font-size:23px}}
+</style>
+</head>
+<body>
+<div class="prism"></div>
+
+<div class="hero">
+  <div class="wrap">
+    <span class="pr">PR</span>
+    <div class="badge" style="margin-top:12px">PrismaFX Lab</div>
+    <h1>GBP/JPY 自動売買EA<br><span class="pair">PrismaFX GJ M15</span></h1>
+    <p class="sub">裁量で勝てなかった人へ。10年検証・超低ドローダウン。</p>
+    <div class="stats">
+      <div class="stat"><div class="k">勝率</div><div class="v">74.81%</div></div>
+      <div class="stat"><div class="k">プロフィットファクター</div><div class="v">1.49</div></div>
+      <div class="stat"><div class="k">最大ドローダウン</div><div class="v good">0.33%</div></div>
+    </div>
+    <div class="cta">
+      <a class="btn btn-primary" href="#price">▶ 購入する</a>
+      <a class="btn btn-free" href="https://discord.gg/M95suE9fp">▶ 口座開設で“無料”で受け取る</a>
+    </div>
+    <p class="micro">※バックテスト（過去検証）であり、将来の利益を保証しません。2016〜2026・全1,064取引・モデリング品質99.90%</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section id="result">
+    <h2>バックテスト実績（過去検証）</h2>
+    <img class="chart" src="assets/gj_equity.gif" alt="PrismaFX GJ M15 資産曲線（バックテスト）">
+    <table>
+      <tr><td>通貨ペア / 時間足</td><td>GBPJPY / 15分足</td></tr>
+      <tr><td>検証期間</td><td>2016.03〜2026.04（約10年）</td></tr>
+      <tr><td>総取引数</td><td>1,064</td></tr>
+      <tr><td>勝率</td><td>74.81%</td></tr>
+      <tr><td>プロフィットファクター</td><td>1.49</td></tr>
+      <tr><td>最大ドローダウン</td><td>0.33%</td></tr>
+      <tr><td>純益（初期100万・0.01ロット／FIX）</td><td>+43,155円</td></tr>
+      <tr><td>モデリング品質</td><td>99.90%（全ティック）</td></tr>
+    </table>
+    <div class="disc">FIX（固定ロット）の保守設定です。マーチン版（PF1.61／最大DD2.65%）や複利モードも搭載していますが、ドローダウンが大きくなるため上級者向けです。</div>
+  </section>
+
+  <section>
+    <h2>PrismaFX GJ M15 の特徴</h2>
+    <ul class="feat">
+      <li><b>GBP/JPY M15特化</b>：ボラティリティの高い通貨を厳選ロジックで攻略</li>
+      <li><b>感情を排除</b>：損切り・利確を自動執行、機械的に運用</li>
+      <li><b>10年・1,064取引</b>で長期検証、局面の偏りを確認</li>
+      <li><b>超低ドローダウン</b>（最大DD0.33%）で資金管理しやすい</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>無料 と 有料、2つの受け取り方</h2>
+    <div class="split">
+      <div class="plan free">
+        <h3>無料で受け取る</h3>
+        <div class="tag">口座を作れる方におすすめ</div>
+        <p>HFM口座を当ラボのリンクから開設 → EAを<b>無料</b>で提供（PR）。設定サポートもDiscordで。</p>
+      </div>
+      <div class="plan">
+        <h3>購入する</h3>
+        <div class="tag">口座を作らず使いたい方に</div>
+        <p>別ブローカー利用／今すぐ使いたい方向け。このページから購入できます。</p>
+      </div>
+    </div>
+    <div class="gift">★ 購入者特典：もう一方の通貨「<b>USD/JPY版（PrismaFX UJ M15）</b>」も、口座開設で無料プレゼント。</div>
+  </section>
+
+  <section id="price">
+    <h2>価格・購入</h2>
+    <div class="price">
+      <div class="tag" style="color:var(--mut);font-size:13px">PrismaFX GJ M15（GBP/JPY）</div>
+      <div class="amt">¥17,800 <span style="font-size:14px;color:var(--mut);font-weight:600">（税込）</span></div>
+      <div class="cta" style="margin-top:16px">
+        <a class="btn btn-primary" href="#">購入する（Xaffner / ヤフオク）</a>
+      </div>
+      <p class="micro">買い切り価格。口座開設で“無料”受け取りも選べます。</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>設定サポート・無料受け取りはDiscordで</h2>
+    <p style="color:var(--mut);font-size:15px;margin-bottom:14px">口座開設ガイド、EA設定サポート、他通貨EAの無料受け取りはコミュニティで対応しています。</p>
+    <a class="btn btn-free" style="border-color:var(--accent);color:#fff" href="https://discord.gg/M95suE9fp">Discordに参加する 👉 discord.gg/M95suE9fp</a>
+  </section>
+
+  <section>
+    <h2>よくあるご質問</h2>
+    <div class="faq">
+      <details><summary>本当に無料で使えますか？</summary><p>はい。HFM口座を当ラボのリンク（PR）から開設いただいた方には無料で提供しています。口座を作らずに使いたい方向けに、有料販売もご用意しています。</p></details>
+      <details><summary>初心者でも使えますか？</summary><p>導入手順・設定はDiscordで画像付きサポートを行っています。まずはコミュニティにご参加ください。</p></details>
+      <details><summary>掲載の数字は実際の成績ですか？</summary><p>MT4ストラテジーテスターによる過去10年のバックテスト結果です。将来の成績を保証するものではありません。</p></details>
+      <details><summary>2通貨とも手に入りますか？</summary><p>購入者の方には、もう一方の通貨も口座開設で無料プレゼントしています。</p></details>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <span class="pr">PR</span>
+    <div class="disc" style="text-align:left;margin-top:14px">
+      ⚠️ 本EAのバックテストは過去データに基づく検証であり、将来の利益・成績を保証するものではありません。
+      FX（外国為替証拠金取引）には元本を超える損失が生じるリスクがあります。投資判断はご自身の責任で行ってください。
+      当ページはHFMのアフィリエイトプログラムに関連するリンクを含みます（PR）。
+    </div>
+    <p style="margin-top:16px">© PrismaFX Lab</p>
+  </div>
+</footer>
+</body>
+</html>
