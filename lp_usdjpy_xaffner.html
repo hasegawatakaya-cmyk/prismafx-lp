@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PrismaFX UJ M15｜USD/JPY 自動売買EA（Xaffner用）</title>
+<style>
+  :root{
+    --bg:#0a1424; --bg2:#0e1c33; --card:#122542; --line:#1e3559;
+    --tx:#e8eefc; --mut:#93a6c8; --accent:#3a86ff; --accent2:#38e0c8;
+    --good:#39d98a; --maxw:760px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--tx);font-family:-apple-system,"Segoe UI","Hiragino Sans","Noto Sans JP",sans-serif;line-height:1.75}
+  .page{max-width:var(--maxw);margin:0 auto}
+  .wrap{padding:0 26px}
+  .prism{height:6px;background:linear-gradient(90deg,#7b5cff,#3a86ff,#38e0c8,#ffd166)}
+  .hero{background:radial-gradient(1200px 420px at 50% -10%,rgba(58,134,255,.22),transparent 60%),var(--bg);padding:44px 0 34px;text-align:center}
+  .badge{color:var(--accent2);font-weight:700;font-size:14px;letter-spacing:.12em}
+  h1{font-size:32px;line-height:1.3;margin:12px 0 8px;font-weight:800}
+  h1 .pair{background:linear-gradient(90deg,#3a86ff,#38e0c8);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .sub{color:var(--mut);font-size:16px;margin-bottom:22px}
+  .stats{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:20px 0}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;min-width:170px;flex:1}
+  .stat .k{font-size:13px;color:var(--mut)}
+  .stat .v{font-size:30px;font-weight:800;color:#fff;line-height:1.2}
+  .stat .v.good{color:var(--good)}
+  .micro{font-size:13px;color:var(--mut);margin-top:14px}
+  section{padding:38px 0;border-top:1px solid var(--line)}
+  h2{font-size:23px;font-weight:800;margin-bottom:18px;display:flex;align-items:center;gap:10px}
+  h2::before{content:"";width:7px;height:24px;border-radius:3px;background:linear-gradient(180deg,#3a86ff,#38e0c8)}
+  .chart{width:100%;border:1px solid var(--line);border-radius:12px;background:#fff;padding:10px;margin:6px 0 18px}
+  table{width:100%;border-collapse:collapse;font-size:15px}
+  td{padding:12px 12px;border-bottom:1px solid var(--line)}
+  td:first-child{color:var(--mut)}
+  td:last-child{text-align:right;font-weight:700}
+  ul.feat{list-style:none;display:grid;gap:12px}
+  ul.feat li{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 17px;font-size:16px}
+  ul.feat li b{color:var(--accent2)}
+  .price{text-align:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px}
+  .price .amt{font-size:38px;font-weight:800;color:#fff}
+  .price .tag{font-size:14px;color:var(--mut)}
+  .support{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;font-size:15px;color:var(--tx)}
+  .disc{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:18px;font-size:13px;color:var(--mut);margin-top:8px}
+  footer{padding:28px 0 40px;text-align:center;color:var(--mut);font-size:12px}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="prism"></div>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="badge">PrismaFX Lab</div>
+    <h1>USD/JPY 自動売買EA<br><span class="pair">PrismaFX UJ M15</span></h1>
+    <p class="sub">10年バックテストで磨いた、低ドローダウン設計。</p>
+    <div class="stats">
+      <div class="stat"><div class="k">勝率</div><div class="v">73.52%</div></div>
+      <div class="stat"><div class="k">プロフィットファクター</div><div class="v">1.73</div></div>
+      <div class="stat"><div class="k">最大ドローダウン</div><div class="v good">0.55%</div></div>
+    </div>
+    <p class="micro">2016〜2026・全1,382取引・モデリング品質99.90%（バックテスト）</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section>
+    <h2>バックテスト実績（過去検証）</h2>
+    <img class="chart" src="assets/uj_equity.gif" alt="PrismaFX UJ M15 資産曲線（バックテスト）">
+    <table>
+      <tr><td>通貨ペア / 時間足</td><td>USDJPY / 15分足</td></tr>
+      <tr><td>検証期間</td><td>2016.01〜2026.06（約10年）</td></tr>
+      <tr><td>総取引数</td><td>1,382</td></tr>
+      <tr><td>勝率</td><td>73.52%</td></tr>
+      <tr><td>プロフィットファクター</td><td>1.73</td></tr>
+      <tr><td>最大ドローダウン</td><td>0.55%</td></tr>
+      <tr><td>純益（初期100万・0.01ロット）</td><td>+104,560円</td></tr>
+      <tr><td>モデリング品質</td><td>99.90%（全ティック）</td></tr>
+    </table>
+    <div class="disc">複利（資金管理）モードも搭載。リターンは伸びますが最大ドローダウンも大きくなるため上級者向けです。</div>
+  </section>
+
+  <section>
+    <h2>特徴</h2>
+    <ul class="feat">
+      <li><b>USD/JPY M15特化</b>：複数フィルターでエントリーを厳選するロジック</li>
+      <li><b>感情を排除</b>：損切り・利確を自動執行、機械的に運用</li>
+      <li><b>10年・1,382取引</b>で長期検証、局面の偏りを確認</li>
+      <li><b>低ドローダウン設計</b>（最大DD0.55%）で資金管理しやすい</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>価格</h2>
+    <div class="price">
+      <div class="tag">PrismaFX UJ M15（USD/JPY）買い切り</div>
+      <div class="amt">¥17,800<span style="font-size:16px;color:var(--mut);font-weight:600">（税込）</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>サポート・設定</h2>
+    <div class="support">導入・設定の手順は、ご購入者向けの同梱マニュアルでご案内します。</div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="disc" style="text-align:left">
+      ⚠️ 本EAのバックテストは過去データに基づく検証であり、将来の利益・成績を保証するものではありません。
+      FX（外国為替証拠金取引）には元本を超える損失が生じるリスクがあります。投資判断はご自身の責任で行ってください。
+    </div>
+    <p style="margin-top:14px">© PrismaFX Lab</p>
+  </div>
+</footer>
+</div>
+</body>
+</html>
