@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#fff}
+  .icon{
+    width:512px;height:512px;overflow:hidden;position:relative;
+    background:radial-gradient(420px 300px at 50% 34%,#16305a,#0a1424 70%);
+    font-family:-apple-system,"Segoe UI","Hiragino Sans","Noto Sans JP",sans-serif;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+  }
+  .prismwrap{width:300px;height:200px;margin-top:8px}
+  .brand{color:#fff;font-weight:800;font-size:40px;letter-spacing:.02em;margin-top:14px}
+  .brand .fx{background:linear-gradient(90deg,#3a86ff,#38e0c8);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .pair{margin-top:14px;color:#cfe0ff;font-weight:800;font-size:30px;letter-spacing:.06em}
+  .model{margin-top:6px;color:#8aa2cc;font-weight:600;font-size:19px;letter-spacing:.16em}
+  .bar{position:absolute;bottom:0;left:0;width:100%;height:10px;background:linear-gradient(90deg,#7b5cff,#3a86ff,#38e0c8,#ffd166)}
+</style>
+</head>
+<body>
+<div class="icon" id="icon">
+  <svg class="prismwrap" viewBox="0 0 300 200">
+    <!-- incoming white beam -->
+    <rect x="0" y="97" width="150" height="6" fill="#ffffff" opacity="0.9"/>
+    <!-- prism triangle -->
+    <polygon points="150,40 210,150 90,150" fill="rgba(255,255,255,0.06)" stroke="#ffffff" stroke-width="3" stroke-linejoin="round"/>
+    <!-- refracted rainbow beams -->
+    <g stroke-width="5" stroke-linecap="round" opacity="0.95">
+      <line x1="192" y1="118" x2="300" y2="70"  stroke="#ff5b5b"/>
+      <line x1="194" y1="123" x2="300" y2="92"  stroke="#ffa53a"/>
+      <line x1="196" y1="128" x2="300" y2="114" stroke="#ffe14d"/>
+      <line x1="198" y1="133" x2="300" y2="136" stroke="#39d98a"/>
+      <line x1="200" y1="138" x2="300" y2="158" stroke="#3a86ff"/>
+      <line x1="202" y1="143" x2="300" y2="180" stroke="#9b5cff"/>
+    </g>
+  </svg>
+  <div class="brand">Prisma<span class="fx">FX</span></div>
+  <div class="pair">USD/JPY</div>
+  <div class="model">UJ M15 ・ 自動売買EA</div>
+  <div class="bar"></div>
+</div>
+</body>
+</html>
